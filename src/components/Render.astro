@@ -1,0 +1,45 @@
+---
+interface Props {
+	title: string;
+	body: string;
+	href: string;
+}
+
+const { href, title, body } = Astro.props;
+
+
+---
+
+<textarea id="userInput"/>
+<button id="renderButton">render</button>
+<div id="render" class="render"></div>
+
+<style>
+#userInput {
+  width: 300px;
+  height: 300px;
+}
+
+.render {
+  border: 1px solid #ccc;
+  padding: 5px;
+  overflow: auto;
+}
+</style>
+
+<script>
+import DOMPurify from 'dompurify';
+
+const render = document.getElementById("render")
+const opa = document.getElementById("renderButton")
+
+const renderFun = () => {
+  const input = document.getElementById("userInput")
+  const rawInput = input.value
+  const sanitized = DOMPurify.sanitize(rawInput);
+  render.innerHTML = sanitized;
+}
+
+opa.addEventListener('click', renderFun)
+</script>
+
