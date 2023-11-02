@@ -1,13 +1,4 @@
 ---
-interface Props {
-	title: string;
-	body: string;
-	href: string;
-}
-
-const { href, title, body } = Astro.props;
-
-
 ---
 
 <textarea id="userInput"/>
@@ -31,15 +22,18 @@ const { href, title, body } = Astro.props;
 import DOMPurify from 'dompurify';
 
 const render = document.getElementById("render")
-const opa = document.getElementById("renderButton")
+const renderButton = document.getElementById("renderButton")
 
 const renderFun = () => {
-  const input = document.getElementById("userInput")
-  const rawInput = input.value
-  const sanitized = DOMPurify.sanitize(rawInput);
-  render.innerHTML = sanitized;
+  if (render) {
+    const input = document.getElementById("userInput") as HTMLInputElement
+    const rawInput = input.value
+    const sanitized = DOMPurify.sanitize(rawInput);
+    render.innerHTML = sanitized;
+  }
 }
 
-opa.addEventListener('click', renderFun)
+if (renderButton)
+  renderButton.addEventListener('click', renderFun)
 </script>
 
